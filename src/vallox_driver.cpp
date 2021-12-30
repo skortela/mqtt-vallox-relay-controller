@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <Adafruit_MCP23017.h>
+#include <Adafruit_MCP23x17.h>
 #include "vallox_driver.h"
 
 const int KDefaultSpeed = 1;
@@ -13,7 +13,7 @@ ValloxDriver::~ValloxDriver()
 {
 }
 
-void ValloxDriver::begin(Adafruit_MCP23017* pMcp)
+void ValloxDriver::begin(Adafruit_MCP23X17* pMcp)
 {
     m_pMcp = pMcp;
     for (int i=0; i<8; i++) {

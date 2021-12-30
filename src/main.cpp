@@ -14,7 +14,7 @@
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <Adafruit_MCP23017.h>
+#include <Adafruit_MCP23X17.h>
 
 
 #include "eeprom_utils.h"
@@ -40,7 +40,7 @@ OneWire oneWire(ONE_WIRE_PIN);
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
 
-Adafruit_MCP23017 m_mcp;
+Adafruit_MCP23X17 m_mcp;
 
 void blink();
 void sendState(bool refreshTemperature = false);
@@ -419,7 +419,12 @@ void setup()
 
     EEPROM.begin(150);
 
-    m_mcp.begin();
+    // uncomment appropriate mcp.begin
+    if (!m_mcp.begin_I2C()) {
+    //if (!mcp.begin_SPI(CS_PIN)) {
+        Serial.println("ERROR: Failed to connect MCP23X17");
+        while (1);
+    }
     m_vallox.begin(&m_mcp);
     //m_vallox.begin();
 
@@ -436,8 +441,9 @@ void setup()
     pinMode(D3, INPUT_PULLUP); // Connect external switch between D3 and D5.
 
 
-    m_mcp.pinMode(KResetPinB7, INPUT);
-    m_mcp.pullUp(KResetPinB7, HIGH);  // turn on a 100K pullup internally
+    //m_mcp.pinMode(KResetPinB7, INPUT);
+    //m_mcp.pullUp(KResetPinB7, HIGH);  // turn on a 100K pullup internally
+    m_mcp.pinMode(KResetPinB7, INPUT_PULLUP); // turn on a 100K pullup internally
 
 
     sensors.begin();
