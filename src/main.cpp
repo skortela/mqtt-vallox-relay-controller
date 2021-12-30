@@ -357,14 +357,15 @@ void sendState(bool refreshTemperature) {
 
         JsonObject sensorsObj = root.createNestedObject("sensors");
 
+        // Loop all found addresses, do not rely on devCount as it is not refreshed.
         DeviceAddress addr;
         char addrStr[19];
-        for (uint8_t i=0; i < devCount; i++) {
-            if (sensors.getAddress(addr, i)) {
+        for (uint8_t i=0; sensors.getAddress(addr, i); i++) {
+            float value = sensors.getTempC(addr);
+            if (value != DEVICE_DISCONNECTED_C) {
                 addressToStr(addr, addrStr);
-                sensorsObj[addrStr] = round1(sensors.getTempC(addr));
+                sensorsObj[addrStr] = round1(value);
             }
-
         }
     }
     
