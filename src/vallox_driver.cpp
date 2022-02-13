@@ -92,27 +92,31 @@ void ValloxDriver::setSpeedIncoming(int speed)
         setRelay(3, false);
         break;
     case 1:
-        setRelay(0, true);
         setRelay(1, false);
         setRelay(2, false);
         setRelay(3, false);
+        delay(100);
+        setRelay(0, true);
         break;
     case 2:
         setRelay(0, false);
-        setRelay(1, true);
         setRelay(2, false);
         setRelay(3, false);
+        delay(100);
+        setRelay(1, true);
         break;
     case 3:
         setRelay(0, false);
         setRelay(1, false);
-        setRelay(2, true);
         setRelay(3, false);
+        delay(100);
+        setRelay(2, true);
         break;
     case 4:
         setRelay(0, false);
         setRelay(1, false);
         setRelay(2, false);
+        delay(100);
         setRelay(3, true);
         break;
     default:
@@ -136,27 +140,31 @@ void ValloxDriver::setSpeedExhaust(int speed)
         setRelay(7, false);
         break;
     case 1:
-        setRelay(4, true);
         setRelay(5, false);
         setRelay(6, false);
         setRelay(7, false);
+        delay(100);
+        setRelay(4, true);
         break;
     case 2:
         setRelay(4, false);
-        setRelay(5, true);
         setRelay(6, false);
         setRelay(7, false);
+        delay(100);
+        setRelay(5, true);
         break;
     case 3:
         setRelay(4, false);
         setRelay(5, false);
-        setRelay(6, true);
         setRelay(7, false);
+        delay(100);
+        setRelay(6, true);
         break;
     case 4:
         setRelay(4, false);
         setRelay(5, false);
         setRelay(6, false);
+        delay(100);
         setRelay(7, true);
         break;
     default:
