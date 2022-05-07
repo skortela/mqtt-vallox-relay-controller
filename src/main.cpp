@@ -319,7 +319,7 @@ double round1(double value) {
 }
 
 void sendState(bool refreshTemperature) {
-    StaticJsonDocument<200> doc;
+    StaticJsonDocument<1500> doc;
     JsonObject root = doc.to<JsonObject>();
 
     const char* KStrOn = "ON";
@@ -369,9 +369,9 @@ void sendState(bool refreshTemperature) {
         }
     }
     
-    char* jsonBuffer = new char[200];
+    char* jsonBuffer = new char[1500];
 
-    serializeJson(root, jsonBuffer, 200);
+    serializeJson(root, jsonBuffer, 1500);
     Serial.println("sending state");
     Serial.println(jsonBuffer);
 
@@ -420,14 +420,11 @@ void setup()
 
     EEPROM.begin(150);
 
-    // uncomment appropriate mcp.begin
     if (!m_mcp.begin_I2C()) {
-    //if (!mcp.begin_SPI(CS_PIN)) {
         Serial.println("ERROR: Failed to connect MCP23X17");
         while (1);
     }
     m_vallox.begin(&m_mcp);
-    //m_vallox.begin();
 
     m_vallox.setPower(true);
     
@@ -442,8 +439,6 @@ void setup()
     pinMode(D3, INPUT_PULLUP); // Connect external switch between D3 and D5.
 
 
-    //m_mcp.pinMode(KResetPinB7, INPUT);
-    //m_mcp.pullUp(KResetPinB7, HIGH);  // turn on a 100K pullup internally
     m_mcp.pinMode(KResetPinB7, INPUT_PULLUP); // turn on a 100K pullup internally
 
 
